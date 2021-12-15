@@ -29,7 +29,7 @@ $folders = [
 function strLenAll($a){
     return mb_strtoupper($a);
 }
-StrLenAll ($foldersALL);
+//StrLenAll ($foldersALL);
 
 $a = "_";
 $b = "";
