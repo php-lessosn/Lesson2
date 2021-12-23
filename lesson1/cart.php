@@ -12,9 +12,59 @@ require_once "products.php";
 <body>
 <h1>Корзина</h1>
 <?php
-foreach ($_SESSION["id"] as $id_one) : ?>
-<h2>  <?php echo $products[$id_one]["name"] ."\n";?></h2>
+if (!isset($_SESSION["id"])){?>
+    <h5><?php echo "Ваша корзина пуста" ?></h5>
 
-<?php endforeach; ?>
+<?php }
+else {
+
+?>
+
+<table border="1">
+    <?php
+
+        $countedItems = [];
+
+        foreach ($_SESSION["id"] as $id_one){
+
+            if (!isset ($countedItems [$id_one])){
+                $countedItems[$id_one]=1;
+            }
+            else {
+                $countedItems[$id_one]+=1;
+     }
+
+        }
+    $total = 0;
+     foreach($countedItems as $id_one=>$count){?>
+
+    <tr>
+        <th>
+            <?php
+                   echo $products[$id_one]["name"] ."\n";
+
+             ?></th>
+
+        <th>
+            <?php
+                 echo $products[$id_one]["price"] ."\n";
+                 ?>
+           </th>
+        <th>
+           <?php echo $count; ?>
+        </th>
+        <th>
+           <?php $fullPrice=$count*$products[$id_one]["price"];
+           echo $fullPrice;?>
+        </th>
+
+             <?php  $total =$total+$fullPrice; ?>
+
+    </tr>
+     <?php } ?>
+
+</table>
+<h1> <?php echo $total; ?></h1>
+<?php } ?>
  </body>
 </html>
